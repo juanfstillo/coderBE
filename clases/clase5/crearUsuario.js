@@ -1,11 +1,15 @@
-const UserManager = require('./userManager');
+const UserManager = require('./UserManager');
+
 const userManager = new UserManager();
 
 const nuevoUsuario = {
-    Nombre : 'Juan',
-    Apellido : 'Perez',
-    'Nombre de usuario': 'jperez',
-    Contraseña: 'miContraseñaSegura'
-}
+  Nombre: 'Juan',
+  Apellido: 'Pérez',
+  'Nombre de usuario': 'jperez',
+  Contraseña: 'miContraseñaSegura',
+};
 
-const mensajeValidacion = UserManager.validarUsuario(nombreUsuario, contraseña);
+userManager.crearUsuario(nuevoUsuario);
+
+
+

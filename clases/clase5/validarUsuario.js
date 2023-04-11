@@ -1,7 +1,8 @@
-const UserManager = require('./userManager');
+const UserManager = require('./UserManager');
+
 const userManager = new UserManager();
 
 const nombreUsuario = 'jperez';
-const contraseña = 'miContraseñanoSegura';
+const contraseña = 'miContraseñaSegura';
 
-const mensajeValidacion = "Logueado exitosamente"
+const mensajeValidacion = userManager.validarUsuario(nombreUsuario, contraseña);

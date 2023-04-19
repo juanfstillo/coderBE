@@ -1,5 +1,6 @@
 const ProductManager = require("./ProductManager");
 const ProductManager1 = new ProductManager("products.json");
+app.use(express.urlencoded({extended:true}));
 
 const express = require('express');
 const app = express();

@@ -46,7 +46,7 @@ router.post('/:cid/product/:pid', async (req, res) => {
     }else{
         cart.products.push({productId:pId,quantity:1})
     };
-    await fs.promises.appendFile("../carts.json", JSON.stringify(cart));
+    //await fs.promises.writeFile("carts.json", JSON.stringify(cart));
     console.log(cart);
     res.status(200).send("Cart Updated")
 })

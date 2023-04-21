@@ -36,6 +36,10 @@ class CartManager {
         }
     }
 
+    async updateCart(){
+
+    }
+
 
 
   }

@@ -12,9 +12,9 @@ class CartManager {
         try{ 
             this.carts = await fs.promises.readFile(this.path,'utf-8')
             let parseCarts = (JSON.parse(this.carts));
-            const newId = parseCarts.length + 1; // Incrementamos el contador de ids y lo asignamos al nuevo carrito
-            const newCart = { id: newId, products }; // Creamos un nuevo carrito con el id generado y los productos recibidos como parámetro
-            parseCarts.push(newCart); // Agregamos el nuevo carrito al array de carritos
+            const newId = parseCarts.length + 1; 
+            const newCart = { id: newId, products }; 
+            parseCarts.push(newCart); 
             console.log(newCart);
             await fs.promises.writeFile(this.path, JSON.stringify(parseCarts));
         } catch(error){
@@ -44,19 +44,17 @@ class CartManager {
         const cartMatched = parseCarts.find(c => c.id === cId);
         const index = parseCarts.indexOf(cartMatched);
         const existingProductCart = cartMatched.products.find(p =>p.productId === pId)
-        console.log(existingProductCart)
         if(existingProductCart){
             const indexProduct = cartMatched.products.indexOf(existingProductCart)
-            parseCarts[index]['products'][indexProduct]['quantity'] = existingProductCart.quantity++
+            parseCarts[index]['products'][indexProduct]['quantity'] +=1
+            await fs.promises.writeFile(this.path, JSON.stringify(parseCarts));
             return
-            console.log(existingProductCart)
-        }else
-        return
-
-
+        }else{
+            parseCarts[index]['products'].push({productId:pId,quantity:1})
+            await fs.promises.writeFile(this.path, JSON.stringify(parseCarts));
+            return
+        }
     }
-
-
 
   }
   

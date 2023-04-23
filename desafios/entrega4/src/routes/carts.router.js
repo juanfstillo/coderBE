@@ -42,16 +42,12 @@ router.post('/:cid/product/:pid', async (req, res) => {
         res.status(404).send('Product not Found')
         return
     }
-    await CartManager1.updateCart(cId,pId)
-    // const existingProductCart = cart.products.find(p =>p.productId === pId)
-    // if(existingProductCart){
-    //     existingProductCart.quantity++
-    // }else{
-    //     cart.products.push({productId:pId,quantity:1})
-    // };
-    // //await fs.promises.writeFile("carts.json", JSON.stringify(cart));
-    // console.log(cart);
-    res.status(200).send("Cart Updated")
+    try{
+        await CartManager1.updateCart(cId,pId)
+        res.status(200).send("Cart Updated")
+    }catch(error){
+        res.status(500).send(`There was a error trying to add a product to your cart ${error}`)
+    }
 })
 
 

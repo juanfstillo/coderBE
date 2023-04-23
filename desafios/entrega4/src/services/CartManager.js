@@ -1,4 +1,6 @@
 import fs from 'fs';
+import ProductManager from "../services/ProductManager.js";
+
 class CartManager {
     constructor(path) {
       this.carts = []; 
@@ -36,7 +38,21 @@ class CartManager {
         }
     }
 
-    async updateCart(){
+    async updateCart(cId,pId){
+        const carts = await fs.promises.readFile(this.path,'utf-8')
+        const parseCarts = JSON.parse(carts)
+        const cartMatched = parseCarts.find(c => c.id === cId);
+        const index = parseCarts.indexOf(cartMatched);
+        const existingProductCart = cartMatched.products.find(p =>p.productId === pId)
+        console.log(existingProductCart)
+        if(existingProductCart){
+            const indexProduct = cartMatched.products.indexOf(existingProductCart)
+            parseCarts[index]['products'][indexProduct]['quantity'] = existingProductCart.quantity++
+            return
+            console.log(existingProductCart)
+        }else
+        return
+
 
     }
 

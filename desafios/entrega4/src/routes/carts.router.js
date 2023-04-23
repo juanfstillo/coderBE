@@ -36,18 +36,21 @@ router.post('/:cid/product/:pid', async (req, res) => {
     const productFounded = await ProductManager2.getProductById(pId)
     if (!cart) {
         res.status(404).send('Cart not Found')
+        return
     }
     if(!productFounded){
         res.status(404).send('Product not Found')
+        return
     }
-    const existingProductCart = cart.products.find(p =>p.productId === pId)
-    if(existingProductCart){
-        existingProductCart.quantity++
-    }else{
-        cart.products.push({productId:pId,quantity:1})
-    };
-    //await fs.promises.writeFile("carts.json", JSON.stringify(cart));
-    console.log(cart);
+    await CartManager1.updateCart(cId,pId)
+    // const existingProductCart = cart.products.find(p =>p.productId === pId)
+    // if(existingProductCart){
+    //     existingProductCart.quantity++
+    // }else{
+    //     cart.products.push({productId:pId,quantity:1})
+    // };
+    // //await fs.promises.writeFile("carts.json", JSON.stringify(cart));
+    // console.log(cart);
     res.status(200).send("Cart Updated")
 })
 

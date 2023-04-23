@@ -1,7 +1,6 @@
 import { Router } from "express";
 import CartManager from '../services/CartManager.js'
 import ProductManager from "../services/ProductManager.js";
-import fs from 'fs';
 
 const router = Router()
 const CartManager1 = new CartManager("carts.json")
@@ -9,12 +8,12 @@ const ProductManager2 = new ProductManager("products.json")
 
 
 router.post('/', async (req,res) => {
-    const { id, quantity} = req.body
-    if ( !id || !quantity) {
-        return res.status(400).send('Complete all fields pepe')
-    }
-    const {body} = req;
-    const newCartId = await CartManager1.createCart(body);
+    // const { id, quantity} = req.body
+    // if ( !id || !quantity) {
+    //     return res.status(400).send('Complete all fields')
+    // }
+    // const {body} = req;
+    const newCartId = await CartManager1.createCart();
     res.status(200).send("Cart created succesfully")
 })
 

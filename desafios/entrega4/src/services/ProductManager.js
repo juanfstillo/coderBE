@@ -1,4 +1,5 @@
 import fs from 'fs';
+
 class ProductManager {
     constructor(path) {
         this.products = [];
@@ -77,7 +78,6 @@ class ProductManager {
             const productMatched = parseProducts.find(p => p.id === id);
           if (productMatched) {
             const index = parseProducts.indexOf(productMatched);
-            console.log(index)
             const {title, description, code, price, status, stock, category, thumbnails} = newData;
     
             title ? parseProducts[index]['title'] = title : null;
@@ -93,7 +93,6 @@ class ProductManager {
             }else{
             console.log(`Product not found with the id ${id}`);
             }   
-    
         } catch (error) {
             console.log(`There was an error ${error} trying to update a product`)
         }

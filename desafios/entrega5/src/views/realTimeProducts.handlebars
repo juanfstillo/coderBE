@@ -1,0 +1,70 @@
+<div class="mb-3">
+<h2> Real Time Products</h2>
+</div>
+
+<div class="mb-3">
+    <form class="row g-3" action="" method="POST"> 
+        <div class="col-sm-3">
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="basic-addon1">Title</span>
+                <input type="text" name="title" required class="form-control" placeholder="Product title" aria-label="title" aria-describedby="basic-addon1">
+            </div>
+        </div>
+
+        <div class="col-sm-2">
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="basic-addon2">Price</span>
+                <input type="text" name="price" required class="form-control" placeholder="Price" aria-label="Price" aria-describedby="basic-addon1">
+            </div>
+        </div>
+
+        <div class="col-sm-2">
+            <div class="d-grid gap-2">
+                <button class="btn btn-primary btn-sm" type="submit">Add product</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="mb-3">
+    <h3>Delete a Product</h3>
+<form action="" method="post">
+{{!-- Hidden input para avisarle al servidor que es un método delete --}}
+<input class="form-control" type="hidden" name="_method" value="DELETE">
+<div class="mb-3">
+<label  class="form-label" for="id">Put your product id to delete the product</label>
+<input name="id" id="id">
+</div>
+<div class="mb-3">
+<input class="form-control" type="submit" id="deleteProduct" value="Delete product" style="color: red;">
+</div>
+</form>
+</div>
+
+
+{{#if products.[0]}}
+    <table class="table table-sm table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Image</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#each products}}
+            <tr>
+                <td>{{this.id}}</td>
+                <td>{{this.title}}</td>
+                <td>{{this.price}}</td>
+                <td>{{this.thumbnail}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+{{else}}
+<h2>There are not products</h2>
+{{/if}}
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>

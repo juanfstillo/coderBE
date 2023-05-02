@@ -34,6 +34,11 @@ app.set('view engine', 'handlebars');
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
+//pm
+import ProductManager from "./services/ProductManager.js"
+const ProductManager1 = new ProductManager("products.json")
+
+
 const httpServer = app.listen(8080, () => {
 
     console.log(`servidor escuchando en http://localhost:8080/`);
@@ -50,3 +55,14 @@ app.use((req,res,next)=>{
 });
 app.use('/',viewRouter);
 app.use("/realtimeproducts",viewRouter);
+app.use("/socketexample",viewRouter);
+
+
+io.on('connection', async (socket) => {
+    console.log('Socket.io: A client has connected.');
+    const products= await ProductManager1.getProducts()
+  
+    // Emitir un evento con los datos que se mostrarán en el listado
+    socket.emit('listData', products);
+  });
+

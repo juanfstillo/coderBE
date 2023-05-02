@@ -3,8 +3,6 @@ import ProductManager from '../services/ProductManager.js'
 const router = Router()
 const ProductManager1 = new ProductManager("products.json")
 
-
-
 router.get('/', async (req, res) => {
     const products = await ProductManager1.getProducts();
     res.render('index',{products})
@@ -30,6 +28,11 @@ router.delete('/',async(req,res)=>{
     const products = await ProductManager1.getProducts();
     res.render('realTimeProducts',{products});
 
+})
+
+router.get('/socketExample', async (req, res) => {
+    const products = await ProductManager1.getProducts();
+    res.render('socketExample',{products})
 })
 
 export default router

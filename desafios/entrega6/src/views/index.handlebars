@@ -1,0 +1,25 @@
+<h2>Products</h2>
+{{#if products.[0]}}
+    <table class="table table-sm table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Image</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#each products}}
+            <tr>
+                <td>{{this.id}}</td>
+                <td>{{this.title}}</td>
+                <td>{{this.price}}</td>
+                <td>{{this.thumbnail}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+{{else}}
+<h2>There are not products</h2>
+{{/if}}

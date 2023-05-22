@@ -33,13 +33,27 @@ app.set('view engine', 'handlebars');
 
 const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, (err) => {
+const server = app.listen(PORT, (err) => {
   if (err) {
     console.log("Connection Error: ", err);
     return;
   }
   console.log(`Server listening on port ${PORT}`);
 });
+
+// chat
+import { Server } from "socket.io";
+const io = new Server(server);
+const messages= [];
+
+io.on('connection',socket=>{
+    console.log("Socket connected");
+
+    socket.on('message',data=>{
+        messages.push(data);
+        io.emit('messageLogs',messages);
+    })
+})
 
 
 export default app;

@@ -11,7 +11,16 @@ async getProducts(){
             throw error;
             }
         }
-        
+
+async createProduct(user) {
+        try{
+                let result = await productModel.create(user);
+                return result
+        }catch(error){
+                console.error('Error al obtener los usuarios:', error);
+                throw error;
+                }     
+        }
 }
 
 export default ProductManager;

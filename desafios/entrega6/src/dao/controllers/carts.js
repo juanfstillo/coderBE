@@ -1,4 +1,6 @@
 import cartModel from "../models/carts.js";
+import productModel from "../models/products.js";
+
 
 class CartManager {
   constructor() {}
@@ -28,14 +30,16 @@ class CartManager {
   async updateCart(cid,pid){
     try {
       const cartFind = await cartModel.findOne({_id: cid});
-      if (!cartFind) {
-      console.error(`Cart with the id ${cid} not found, try again-`);
+      const productFind = await productModel.findOne({_id: pid});
+      if (!cartFind || !productFind) {
+      console.error(`Cart or product with the id ${cid} or ${pid} not found, try again-`);
       return false;
       }
     //   const existingProductCart = cartFind.products.findOne({_id: pid});
     //   if(existingProductCart){
         cartFind.products.push({product:pid});
         await cartFind.save();
+        return true;
     //   }
 
      } catch (error) {

@@ -12,10 +12,10 @@
         <tbody>
         {{#each products}}
             <tr>
-                <td>{{this.id}}</td>
+                <td>{{this._id}}</td>
                 <td>{{this.title}}</td>
                 <td>{{this.price}}</td>
-                <td>{{this.thumbnail}}</td>
+                <td><img src="/uploads/{{this.thumbnails}}" alt="Image" width="50"></td>
             </tr>
         {{/each}}
         </tbody>

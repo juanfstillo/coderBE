@@ -1,17 +1,24 @@
-<div class="col-6">
-        <input id="chatbox"  class="form-control" placeholder="Write a message">
-        <p id="messageLogs"></p>
-</div>
-<style>
-    div{
-        background-color: #d3d3d3;
-    }
-    #chatbox{
-        background-color: #dcf8c6;
-        padding: 0.25rem;
-        backdrop-filter:blur(10px);
-    }
-</style>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/chat.js"></script>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat</title>
+  </head>
+  <body>
+    <h1>Chat</h1>
+
+    {{#each chats}}
+    <h2>Chat ID: {{this._id}}</h2>
+    <div>
+      {{#each this.messages}}
+      <div>
+        <strong>{{this.sender}}:</strong> {{this.content}}
+      </div>
+      {{/each}}
+    </div>
+    {{/each}}
+
+    <form action="/send-message" method="POST">
+      <!-- Resto del formulario para enviar mensajes -->
+    </form>
+  </body>
+</html>

@@ -8,6 +8,7 @@ import CartManager from "../dao/controllers/carts.js";
 import { uploader } from "../utils.js";
 
 const pm = new ProductManager();
+const cart = new CartManager();
 //nuevos métodos products
 router.get('/products', async (req, res) => {
   try {
@@ -143,7 +144,7 @@ router.get("/api/cart/:id", async (req, res) => {
   }
 });
 
-router.post("/api/cart/:cid/products/:pid", async (req, res) => {
+router.delete("/api/cart/:cid/products/:pid", async (req, res) => {
   const cId = req.params.cid;
   const pId = req.params.pid;
   const quantity = req.body
@@ -163,6 +164,44 @@ router.post("/api/cart/:cid/products/:pid", async (req, res) => {
       .send(`There was a error trying to add a product to your cart ${error}`);
   }
 });
+
+
+router.get("/carts/:cId", async (req, res) => {
+  const { cId } = req.params;
+  const cartFound = await cart.getCartById(cId);
+  res.render("cart", {
+    products: cartFound.products,
+  });
+});
+
+// borrar todos los productos de un carrito
+router.delete("/api/carts/:cId", async (req, res) => {
+  try {
+    const { cId } = req.params;
+    const cartDeleted = await cart.deleteAllProductsCart(cId);
+    if(!cartDeleted){
+      res.send({ status: "error",message:`Cart with the id ${cId} not found, try again-`});
+    }else{
+    res.send({ status: "success", message: `Products in cart ${cId} deleted successfully` });
+    }
+  } catch (error) {
+    res.status(500).json({ error: `Error trying to delete all products in cart ${cId} ` });
+  }
+});
+
+//borrar algunsos productos del carrito
+router.delete("/api/carts/:cId/products/:pId", async (req, res) => {
+  const paramId = Object.values(req.params);
+  const cId = req.params.cId;
+  const pId = req.params.pId;
+  const quantity = req.body
+  const cartFound = await cart.deleteProductInCart(
+    { _id: cId },
+    { _id: pId } 
+  );
+  res.send({ status: "success", message: cartFound });
+});
+
 
 router.get("/chat", (req, res) => {
   res.render("chat");

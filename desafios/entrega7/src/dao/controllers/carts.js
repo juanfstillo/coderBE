@@ -20,7 +20,7 @@ class CartManager {
 
   async getCartById(id) {
     try {
-        const cartFind = await cartModel.findById({_id: id}).populate("products.product").lean();
+        const cartFind = await cartModel.findOne({_id: id}).populate("products.product").lean();
         if (!cartFind) {
         console.error(`Product with the id ${id} not found, try again-`);
         return false;
@@ -82,6 +82,52 @@ class CartManager {
      } catch (error) {
       console.log(`There was an error ${error} trying to get a product`)
   }
+  }
+
+  async deleteAllProductsCart(cId){
+    try {
+      const cartFind = await cartModel.findOne({_id: cId});
+      if (!cartFind) {
+      console.error(`Product with the id ${cId} not found, try again-`);
+      return false;
+      }else{
+        cartModel.updateOne(
+          { _id: cartFind._id }, // Filter to find the document to update
+          { products: [] }
+        )
+        return true
+        //return cartModel.findByIdAndDelete(cId).lean();
+      }
+      } catch (error) {
+        console.error('Error al eliminar productos del carrito:', error.message);
+      }
+  };
+
+  async deleteProductInCart(cId,pId){ 
+    try {
+      const cart = await this.getCartById(cId);
+      const products = cart.products;
+
+      const ids = [];
+        for (let index = 0; index < products.length; index++) {
+          ids.push(products[index].product._id);
+        }
+
+        const productToDelete = ids.findIndex((id) => id == pId._id);
+
+        if (productToDelete === -1) {
+
+          return 'Product not found'
+          
+        }
+
+        return await cartModel.updateOne(
+          { _id: cId },
+          { $pull: { products: { product: pId } } }
+        );
+      } catch (error) {
+      console.error('Error trying to delete a product in cart:', error.message);
+    }
   }
 
 }

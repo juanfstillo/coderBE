@@ -1,0 +1,53 @@
+  <form action="/logout" method="GET">
+    <button type="submit">Logout</button>
+  </form>
+
+  <br />
+  {{#if user}}
+    <h1>Bienvenido, {{user.first_name}}</h1>
+    <p>Email: {{user.email}}</p>
+    <p>Nombre: {{user.first_name}}</p>
+    <p>Apellido: {{user.last_name}}</p>
+    <p>Edad: {{user.age}}</p>
+  {{else}}
+    <h1>Bienvenido, Invitado</h1>
+  {{/if}}
+<h2>Products</h2>
+{{#if products.[0]}}
+    <table class="table table-sm table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Image</th>
+                <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#each products}}
+            <tr>
+
+                <td>{{this._id}}</td>
+                <td>{{this.title}}</td>
+                <td>{{this.price}}</td>
+                <td><img src="/uploads/{{this.thumbnails}}" alt="Image" width="50"></td>
+                <td><a href="/products/{{this._id}}">Details</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+{{else}}
+<h2>There are not products</h2>
+{{/if}}
+
+{{#if hasPrevPage}}
+<a href="/?page={{prevPage}}"><button> Prev</button></a>
+{{/if}}
+
+<p>{{page}}</p>
+
+{{#if hasNextPage}}
+<a href="/?page={{nextPage}}"><button>Next</button></a>
+{{/if}}
+<script></script>

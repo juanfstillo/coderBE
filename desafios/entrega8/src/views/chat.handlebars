@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat</title>
+</head>
+<style>
+        form{background:rgba(0,0,0,.15);padding: 0.25rem;position: fixed;bottom: 0;left:0;right: 0;display:flex;height: 3rem;box-sizing:border-box;backdrop-filter:blur(10px);}
+        ul{list-style-type: none;margin:0;padding:0;}
+        ul>li{padding:0.5rem 1rem}
+        ul>li:nth-child(odd){background: #dcf8c6;text-align: right;font-style: italic;font-weight: 600;}
+
+</style>
+<body>
+  <h1>Chat</h1>
+  <ul class="list-group" id="messageList"></ul>
+  <form id="messageForm">
+    <input class="form-control" type="text" id="messageInput" placeholder="Write a message">
+    <button type="submit" class="btn btn-primary">Send</button>
+  </form>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    socket.on('chat message', (message) => {
+      const li = document.createElement('li');
+      li.textContent = message;
+      document.getElementById('messageList').appendChild(li);
+    });
+
+    document.getElementById('messageForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const messageInput = document.getElementById('messageInput');
+      const message = messageInput.value.trim();
+      if (message) {
+        socket.emit('chat message', message);
+        messageInput.value = '';
+      }
+    });
+  </script>
+</body>
+</html>
+

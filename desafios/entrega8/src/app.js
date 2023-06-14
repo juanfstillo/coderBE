@@ -69,7 +69,7 @@ io.on('connection', (socket) => {
 
 // Configuración de la sesión
 const sessionMiddleware = session({
-  secret: "clave123",
+  secret: "abc123abc123",
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({

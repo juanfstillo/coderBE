@@ -4,13 +4,13 @@
 
   <br />
   {{#if user}}
-    <h1>Bienvenido, {{user.first_name}}</h1>
+    <h1>Welcome, {{user.first_name}}</h1>
     <p>Email: {{user.email}}</p>
-    <p>Nombre: {{user.first_name}}</p>
-    <p>Apellido: {{user.last_name}}</p>
-    <p>Edad: {{user.age}}</p>
+    <p>Name: {{user.first_name}}</p>
+    <p>Lastname: {{user.last_name}}</p>
+    <p>Age: {{user.age}}</p>
   {{else}}
-    <h1>Bienvenido, Invitado</h1>
+    <h1>Welcome</h1>
   {{/if}}
 <h2>Products</h2>
 {{#if products.[0]}}

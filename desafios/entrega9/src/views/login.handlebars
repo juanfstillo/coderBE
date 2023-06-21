@@ -1,24 +1,32 @@
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Log-In</title>
-  </head>
-  <body>
-    <h3>Log in to Start</h3>
+<div class="LoginPageContainer text-center mx-auto my-5">
+    <div class="LoginRegisterPage col-6">
+        <form id="loginForm" class="needs-validation" novalidate>
+        
+            <h1 class="mb-4">Log In</h1>
 
-    <form method="POST" action="/login">
-      <label>Email:</label>
-      <input type="email" name="email" required /><br /><br />
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+                <div class="invalid-feedback">
+                    Please enter a valid email address"
+                </div>
+            </div>
 
-      <label>Pass:</label>
-      <input type="password" name="password" required /><br /><br />
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+                <div class="invalid-feedback">
+                    Please enter a valid password"
+                </div>
+            </div>
 
-      {{#if error}}
-        <p style="color: red;">{{error}}</p>
-      {{/if}}
-      <button type="submit">Log In</button>
-    </form>
+            <button type="submit" class="btn btn-primary">Log in</button>
+            <p>Or you can register using <a href="/api/sessions/github">GitHub</a></p>
+        </form>
+    <div class="col-6">
+        <p>¿Are you new? Go to  <a href="/register">register page</a></p>
+    </div>
+    </div>
+</div>    
 
-    <p>¿Are you new? Go to  <a href="/register">register page</a></p>
-  </body>
-</html>
+<script src="/js/login.js"></script>

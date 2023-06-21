@@ -1,22 +1,25 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
+const collection = "users";
+
 const userSchema = new mongoose.Schema({
-  first_name: { type: String, required: true },
-  last_name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  age: { type: Number, required: true },
-  password: { type: String, required: true },
-});
+  first_name: { type: String },
+  last_name: { type: String },
+  email: { type: String, unique: true },
+  age: { type: Number },
+  password: { type: String },
+  role: { type: String, default: 'user'},
+  });
 
-userSchema.methods.comparePassword = async function (password) {
-  try {
-    return await bcrypt.compare(password, this.password);
-  } catch (error) {
-    throw new Error(error);
-  }
-};
+// userSchema.methods.comparePassword = async function (password) {
+//   try {
+//     return await bcrypt.compare(password, this.password);
+//   } catch (error) {
+//     throw new Error(error);
+//   }
+// };
 
-const User = mongoose.model("User", userSchema);
+const userModel = mongoose.model(collection, userSchema);
 
-export default User;
+export default userModel;

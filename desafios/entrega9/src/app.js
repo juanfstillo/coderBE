@@ -1,25 +1,22 @@
 import express from "express";
-
-import router from "./routes/views.router.js";
+import { engine } from "express-handlebars";
+import path from "path";
+import mongoose from "mongoose";
+import __dirname from "./utils.js";
 
 import productRouter from "./routes/products.router.js";
 import cartRouter from "./routes/carts.router.js";
-import viewRouter from "./routes/views.router.js"
+import userRouter from "./routes/user.router.js";
+import viewRouter from "./routes/views.router.js";
 
-
-import path from 'path';
-
-import __dirname from './utils.js';
-
-import { engine }  from "express-handlebars";
-
-import Message from './dao/models/messages.js';
+import Message from "./dao/models/messages.js";
 
 import session from "express-session";
 import MongoStore from "connect-mongo";
+import passport from "passport";
+import initializePassport from "./config/passport.config.js";
 
-
-const publics = path.join(__dirname, './public');
+const publics = path.join(__dirname, "./public");
 
 const app = express();
 
@@ -27,17 +24,13 @@ app.use(express.static(publics));
 
 app.use(express.json());
 
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({ extended: true }));
 
+app.engine("handlebars", engine());
 
-app.engine('handlebars', engine());
+app.set("views", __dirname + "/views");
 
-
-app.set('views', __dirname + '/views');
-
-
-app.set('view engine', 'handlebars');
-
+app.set("view engine", "handlebars");
 
 const PORT = process.env.PORT || 8080;
 
@@ -51,50 +44,55 @@ const server = app.listen(PORT, (err) => {
 
 import { Server } from "socket.io";
 const io = new Server(server);
+const connection = mongoose.connect(
+  "mongodb+srv://juanstillo:abc123abc123@ecommerce.ywig996.mongodb.net/?retryWrites=true&w=majority",
+  {
+    dbName: "ecommerce",
+  }
+  );
 
 // chat
-io.on('connection', (socket) => {
-  console.log('New client connected');
+io.on("connection", (socket) => {
+  console.log("New client connected");
 
-  socket.on('chat message', (message) => {
-    console.log('Message received:', message);
+  socket.on("chat message", (message) => {
+    console.log("Message received:", message);
 
     const newMessage = new Message({ text: message });
     newMessage.save();
 
-    io.emit('chat message', message);
+    io.emit("chat message", message);
   });
 
-  socket.on('disconnect', () => {
-    console.log('Client disconnected');
+  socket.on("disconnect", () => {
+    console.log("Client disconnected");
   });
 });
 
-// Configuración de la sesión
-const sessionMiddleware = session({
-  secret: "abc123abc123",
-  resave: false,
-  saveUninitialized: false,
-  store: MongoStore.create({
-    mongoUrl:"mongodb+srv://juanstillo:abc123abc123@ecommerce.ywig996.mongodb.net/?retryWrites=true&w=majority",
-  }),
-  cookie: {
-    maxAge: 1000 * 60 * 60 * 24, // 1 day
-  },
-});
-app.use(sessionMiddleware);
-// Configuración de socket.io y conexión de usuario
-io.use((socket, next) => {
-  sessionMiddleware(socket.request, socket.request.res, next);
+app.use((req, res, next) => {
+  req.io = io;
+  next();
 });
 
-// app.use("/", router);
+app.use(
+  session({
+    store: new MongoStore({
+      mongoUrl:
+        "mongodb+srv://juanstillo:abc123abc123@ecommerce.ywig996.mongodb.net/?retryWrites=true&w=majority",
+      ttl: 3600,
+    }),
+    secret: "EcommerceCoderHouse",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(passport.initialize());
+initializePassport();
+
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
+app.use("/api/sessions", userRouter);
 app.use("/", viewRouter);
-
-
-
-
 
 export default app;

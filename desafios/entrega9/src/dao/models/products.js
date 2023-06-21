@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 
-import db from "../../config/db.js";
-
-import mongoosePaginate from 'mongoose-paginate-v2';
+import mongoosePaginate from "mongoose-paginate-v2";
 
 const collection = "products";
 
@@ -38,22 +36,11 @@ const schema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 schema.plugin(mongoosePaginate);
-
-// schema.statics.createProduct = async function (product, req) {
-//   try {
-//     const newProduct = new this(product);
-//     const result = await newProduct.save();
-//     return result;
-//   } catch (error) {
-//     console.error("Error while trying to create a product:", error);
-//     throw error;
-//   }
-// };
 
 const productModel = mongoose.model(collection, schema);
 

@@ -1,17 +1,15 @@
-  <form action="/logout" method="GET">
-    <button type="submit">Logout</button>
-  </form>
+<div class="header">
+        <h1>Welcome {{{user.first_name}}}</h1>
+        <button id="logout-btn">Exit</button>
 
-  <br />
-  {{#if user}}
-    <h1>Welcome, {{user.first_name}}</h1>
-    <p>Email: {{user.email}}</p>
-    <p>Name: {{user.first_name}}</p>
-    <p>Lastname: {{user.last_name}}</p>
-    <p>Age: {{user.age}}</p>
-  {{else}}
-    <h1>Welcome</h1>
-  {{/if}}
+        {{#if user}}
+        <h1>Welcome {{{user.first_name}}}</h1>
+        <button id="logout-btn">Exit</button>
+                
+        {{/if}}
+
+</div>
+
 <h2>Products</h2>
 {{#if products.[0]}}
     <table class="table table-sm table-hover">
@@ -50,4 +48,17 @@
 {{#if hasNextPage}}
 <a href="/?page={{nextPage}}"><button>Next</button></a>
 {{/if}}
-<script></script>
+<script src="/js/index.js"></script>
+<style>
+  #logout-btn {
+    background-color: red;
+    width: 10%;
+    border-radius: 10px;
+    font-size: 20px;
+    color: white;
+    border: none;
+    transition: 0.5s;
+    height: 50px;
+    margin: 10px;
+}
+</style>

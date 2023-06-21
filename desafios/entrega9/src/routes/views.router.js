@@ -12,7 +12,6 @@ const pm = new ProductManager();
 const cart = new CartManager();
 
 //PRODUCT
-//vista products
 router.get("/", async (req, res) => {
   try {
     const { page = 1 } = req.query;

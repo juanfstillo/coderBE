@@ -1,6 +1,8 @@
 ## Las rutas son
 ### vistas
-* /products
+* /register
+* /login
+* /
 * /products/pId
 * /cart/cId
 

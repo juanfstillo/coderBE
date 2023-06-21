@@ -78,7 +78,7 @@ app.use(
   session({
     store: new MongoStore({
       mongoUrl:
-        "mongodb+srv://juanstillo:abc123abc123@ecommerce.ywig996.mongodb.net/?retryWrites=true&w=majority",
+        "mongodb+srv://juanstillo:abc123abc123@ecommerce.ywig996.mongodb.net/ecommerce?retryWrites=true&w=majority",
       ttl: 3600,
     }),
     secret: "EcommerceCoderHouse",

@@ -22,6 +22,7 @@ router.get("/", async (req, res) => {
     const products = docs;
     res.render("index", {
       products: products,
+      user: req.session.user,
       page: rest.page,
       hasPrevPage,
       hasNextPage,

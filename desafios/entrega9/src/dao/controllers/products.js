@@ -2,6 +2,11 @@ import productModel from "../models/products.js";
 
 class ProductManager {
   constructor() {}
+  
+  async getAllProducts(params){
+    return productModel.find().lean()
+  }
+
   async getProducts(page, sort, category) {
     try {
       if (category !== undefined) {

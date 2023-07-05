@@ -1,0 +1,30 @@
+<div class="contenedor">
+    <div class="header">
+        <h1>Admin</h1>
+        <button id="logout-btn" class="btn btn-primary">Log out</button>
+    </div>
+
+    <h1>Products</h1>
+    <div class="cards-contenedor">
+
+        {{#if prod}}
+        {{#each prod}}
+        <div class="cards">
+            <h2>{{this.title}}</h2>
+            <p><img src="/uploads/{{this.thumbnails}}" alt="Image" width="50"></p>
+            <p>{{this.description}}</p>
+            <p>Price: ${{this.price}}</p>
+            <p>Stock: {{this.stock}}</p>
+        </div>
+        {{/each}}
+        {{else}}
+        <p>There are no products</p>
+        {{/if}}
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/adminproducts.js"></script>
+
+

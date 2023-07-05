@@ -75,5 +75,12 @@ router.get('/logout', privacy('USER'), async (req, res) => {
     res.redirect('/login')
   });
 })
+//USER ADMIN
+router.get("/adminproducts", privacy('ADMIN'), async (req, res) => {
+  const result = await pm.getAllProducts();
+  res.render("adminproducts", {
+    prod: result,
+  });
+});
 
 export default router;

@@ -81,7 +81,7 @@ app.use(
         "mongodb+srv://juanstillo:abc123abc123@ecommerce.ywig996.mongodb.net/ecommerce?retryWrites=true&w=majority",
       ttl: 3600,
     }),
-    secret: "EcommerceCoderHouse",
+    secret: "clave123",
     resave: false,
     saveUninitialized: false,
   })

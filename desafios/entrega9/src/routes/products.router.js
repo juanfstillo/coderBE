@@ -1,8 +1,27 @@
 import express from "express";
 const router = express.Router();
 import ProductManager from "../dao/controllers/products.js";
+import session from "express-session";
+import MongoStore from "connect-mongo";
+
 
 import { uploader } from "../utils.js";
+
+// Session Store
+
+const sessionStore = MongoStore.create({
+  mongoUrl:
+    "mongodb+srv://juanstillo:abc123abc123@ecommerce.ywig996.mongodb.net/ecommerce",
+});
+
+router.use(
+  session({
+    secret: "clave123",
+    resave: false,
+    saveUninitialized: false,
+    store: sessionStore,
+  })
+);
 
 const pm = new ProductManager();
 

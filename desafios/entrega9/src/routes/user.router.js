@@ -1,7 +1,45 @@
 import { Router, response } from "express";
 import passport from "passport";
+import session from "express-session";
+import MongoStore from "connect-mongo";
+import bodyParser from "body-parser";
+import express from "express"
+
 
 const router = Router();
+
+router.use(express.json());
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
+
+const sessionStore = MongoStore.create({
+  mongoUrl:
+  "mongodb+srv://juanstillo:abc123abc123@ecommerce.ywig996.mongodb.net/ecommerce",
+});
+
+router.use(
+  session({
+    secret: "clave123",
+    resave: false,
+    saveUninitialized: false,
+    store: sessionStore,
+  })
+);
+
+router.use(passport.initialize());
+router.use(passport.session());
+
+
+
+router.use(
+  session({
+    secret: "clave123",
+    resave: false,
+    saveUninitialized: false,
+    store: sessionStore,
+  })
+);
+
 
 router.post(
   "/register",
@@ -61,6 +99,14 @@ router.get("/githubcallback", passport.authenticate("github"), (req, res) => {
   };
 
   res.send({ status: "success" });
+});
+
+router.get("/current", (req, res) => {
+  if (req.user) {
+    res.json(req.user);
+  } else {
+    res.status(401).json({ message: "No hay una sesión activa" });
+  }
 });
 
 export default router;

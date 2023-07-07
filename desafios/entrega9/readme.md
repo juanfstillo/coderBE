@@ -5,6 +5,8 @@
 * /
 * /products/pId
 * /cart/cId
+* /api/session/current
+
 
 Usuario administrador:
  email: "admin@admin.com",

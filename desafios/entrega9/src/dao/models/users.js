@@ -9,7 +9,19 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   age: { type: Number },
   password: { type: String },
-  role: { type: String, default: 'user'}
+  role: { type: String, default: 'user'},
+  cartId: {
+    type: [
+      {
+        cart: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "carts",
+        },
+      },
+    ],
+
+    default: [],
+  },
   });
 
 // userSchema.methods.comparePassword = async function (password) {

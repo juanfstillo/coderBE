@@ -1,0 +1,66 @@
+<div class="contenedor">
+    
+    <div class="header">
+        <h1>Administrador</h1>
+        <button id="logout-btn" style="display: block;">Cerrar sesion</button>
+
+    </div>
+
+    <form action="" id="addProductForm">
+        <h2>Ingrese todos los campos</h2>
+        
+        <label for="title" class="title">Ingrese el nombre del producto</label>
+        <input type="text" name="title" class="title" id="title">
+        
+        <label for="description" class="description">Ingrese una descripcion del producto</label>
+        <input type="text" name="description" class="description" id="description">
+        
+        <label for="price" class="price">Ingrese el precio del producto</label>
+        <input type="number" name="price" class="price" id="price">
+
+        <label for="thumbnail" class="thumbnail">Ingrese una imagen</label>
+        <input type="file" name="thumbnail" class="thumbnail" id="thumbnail">
+
+        <label for="category" class="category">Ingrese la categoria del producto</label>
+        <select name="" id="category" class="category">
+            <option value="remeras">Remeras</option>
+            <option value="buzos">Buzos</option>
+            <option value="pantalones">Pantalones</option>
+            <option value="zapatillas">Zapatillas</option>
+        </select>
+
+        <label for="stock" class="stock">Ingrese el stock del producto</label>
+        <input type="number" name="stock" class="stock" id="stock">
+
+        <p id="error-msg" style="color: red;"></p>
+
+        <button type="submit" id="submit-button">Agregar producto</button>
+    </form> 
+    <h1>Listado de productos en vivo</h1>
+    <div class="cards-contenedor" id="product-list">
+
+        {{#if prod}}
+        {{#each prod}}
+            <div class="cards">
+                <h2>{{this.title}}</h2>
+                <img src="./Images/{{this.category}}.jpg" alt="{{this.title}}" id="prod-img">
+                <p>{{this.description}}</p>
+                <p>Precio: ${{this.price}}</p>
+                <p>Stock: {{this.stock}}</p>
+            </div>
+            
+        {{/each}}
+        {{else}}
+        <p>No se encontraron productos</p>
+        {{/if}}
+    </div>
+    
+
+
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realTimeProducts.js"></script>

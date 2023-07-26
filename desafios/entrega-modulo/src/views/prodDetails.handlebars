@@ -1,0 +1,21 @@
+
+<a href="/"><button class="returnHome-btn" style="color: black;">Productos</button></a>
+
+<div id="prod-detail">
+{{#if prod}}
+<div class="prod-detail-container">
+
+    <h1>{{{prod.title}}}</h1>
+
+    <P>{{{prod.description}}}</P>
+    <img src="/Images/{{prod.category}}.jpg" alt="{{prod.title}}">
+    <P>Precio: ${{{prod.price}}}</P>
+    <button class="add-to-cart">Agregar al Carrito</button>  
+
+</div>
+
+{{else}}
+    <p>No se encontraron productos</p>
+{{/if}}
+
+</div>

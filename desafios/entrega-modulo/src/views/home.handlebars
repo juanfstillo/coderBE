@@ -1,0 +1,71 @@
+<div class="header">
+
+        <h1>Bienvenido {{{user.name}}}</h1>
+
+        <div class="register-login-logout">             
+
+                {{#if user}}
+                        <button id="profile-btn" class="header-btn">Perfil</button>
+                        <p style="font-size: larger;">|</p>
+                        <button id="logout-btn" class="header-btn">Cerrar sesion</button> 
+                        <p style="font-size: larger;">|</p>                       
+                        <a href="/carts/{{user.cart}}"><button id="cart-btn" class="header-btn">Carrito</button></a>
+                {{else}}
+                        <button id="login-btn" class="header-btn">Inicia sesion</button>
+                        <button id="register-btn" class="header-btn">Registrate</button>
+                {{/if}}
+        </div>
+        
+</div>
+
+<div class="contenedor">
+
+        <p>Seleccione la categoria</p>
+
+
+        <form action="POST"> 
+                <select name="" id="">
+                <option value="none">Sin categoria</option>    
+                <a href="/?category=remera"><option value="remeras">Remeras</option></a>
+                <a href="/?category=buzos"><option value="buzos">Buzos</option></a>
+                <a href="/?category=pantalones"><option value="pantalones">Pantalones</option></a>
+                <a href="/?category=zapatillas"><option value="zapatillas">Zapatillas</option></a>
+                </select>
+        </form>
+
+        <div class="cards-contenedor">
+                        
+                 {{#if prod}}
+                {{#each prod}}
+                 <div class="cards">
+                        <a href="/products/{{this._id}}" style="color: black; text-decoration:none">
+                                <h2>{{this.title}}</h2>
+                                <img src="./Images/{{this.category}}.jpg" alt="{{this.title}}" id="prod-img">
+                                <p>Precio: ${{this.price}}</p>
+                                <p>Stock: {{this.stock}}</p>
+                                <button>Agregar al carrito</button>
+                        </a>
+                </div>
+                                
+                {{/each}}
+                {{else}}
+                <p>No se encontraron productos</p>
+                {{/if}}
+                        
+        </div>
+
+        <div class="paginate">
+
+                {{#if hasPrevPage}}
+                <a href="/?page={{prevPage}}"><button>Pagina Previa</button></a>
+                {{/if}}
+
+                        <p class="page">{{page}}</p>
+
+                {{#if hasNextPage}}
+                <a href="/?page={{nextPage}}"><button>Pagina Siguiente</button></a>
+                {{/if}}       
+        </div>
+</div>
+
+<script src="/js/home.js"></script>

@@ -20,18 +20,6 @@
 
 <div class="contenedor">
 
-        <p>Seleccione la categoria</p>
-
-
-        <form action="POST"> 
-                <select name="" id="">
-                <option value="none">Sin categoria</option>    
-                <a href="/?category=remera"><option value="remeras">Remeras</option></a>
-                <a href="/?category=buzos"><option value="buzos">Buzos</option></a>
-                <a href="/?category=pantalones"><option value="pantalones">Pantalones</option></a>
-                <a href="/?category=zapatillas"><option value="zapatillas">Zapatillas</option></a>
-                </select>
-        </form>
 
         <div class="cards-contenedor">
                         
@@ -40,10 +28,10 @@
                  <div class="cards">
                         <a href="/products/{{this._id}}" style="color: black; text-decoration:none">
                                 <h2>{{this.title}}</h2>
-                                <img src="./Images/{{this.category}}.jpg" alt="{{this.title}}" id="prod-img">
+                                <td><img src="/uploads/{{this.thumbnails}}" alt="Image" width="50"></td>
                                 <p>Precio: ${{this.price}}</p>
                                 <p>Stock: {{this.stock}}</p>
-                                <button>Agregar al carrito</button>
+                                <button class="btn btn-info">Agregar al carrito</button>
                         </a>
                 </div>
                                 

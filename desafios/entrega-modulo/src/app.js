@@ -23,7 +23,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 const server = app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 const io = new Server(server);
-const connection = mongoose.connect(config.mongoUrl);
+const connection = mongoose.connect("mongodb+srv://juanstillo:abc123abc123@ecommerce.ywig996.mongodb.net/ecommerce?retryWrites=true&w=majority");
 
 app.engine("handlebars", handlebars.engine());
 app.set("views", `${__dirname}/views`);
@@ -40,11 +40,11 @@ app.use((req, res, next) => {
 app.use(
   session({
     store: new MongoStore({
-      mongoUrl: config.mongoUrl,
-      collection: 'ecommerce', // Optional, specify the collection name where session data will be stored.
-      ttl: 3600 // Sin ttl se guarda 14 dias
+      mongoUrl:
+        "mongodb+srv://juanstillo:abc123abc123@ecommerce.ywig996.mongodb.net/ecommerce?retryWrites=true&w=majority",
+      ttl: 3600,
     }),
-    secret: "E-Commerce",
+    secret: "clave123",
     resave: false,
     saveUninitialized: false,
   })

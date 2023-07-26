@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const collection = "carts";
+const collection = "Carts";
 
 const schema = new mongoose.Schema({
   products: {
@@ -8,7 +8,7 @@ const schema = new mongoose.Schema({
       {
         product: {
           type: mongoose.SchemaTypes.ObjectId,
-          ref: "products",
+          ref: "Products",
         },
         qty: {
           type: Number,
@@ -20,7 +20,7 @@ const schema = new mongoose.Schema({
   },
   user: {
     type: mongoose.SchemaTypes.ObjectId,
-    ref: "users",
+    ref: "Users",
     default: undefined
   }
 }, {timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}});
